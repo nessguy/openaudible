@@ -4,21 +4,16 @@ pipeline {
         skipStagesAfterUnstable()
     }
     stages {
+        
+        stage('Clean') { 
+            steps { 
+                mvn clean 
+            }
+        }
         stage('Build') { 
             steps { 
-                sh 'make' 
+                mvn install
             }
-        }
-        stage('Test'){
-            steps {
-                sh 'make check'
-                junit 'reports/**/*.xml' 
-            }
-        }
-        stage('Deploy') {
-            steps {
-                sh 'make publish'
-            }
-        }
+        }        
     }
 }
